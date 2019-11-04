@@ -1,0 +1,36 @@
+import lib.constants as c
+import pygame, sys
+from pygame.locals import *
+
+class Game():
+    def __init__(self):
+        pygame.init()
+        pygame.display.set_caption("SANTARENA")
+        self.screen = pygame.display.set_mode((c.SURFWIDTH, c.SURFHEIGHT))
+
+    def Event(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+    def Update(self):
+        pass
+
+    def Draw(self):
+        self.screen.fill(c.BLUE)
+        pygame.draw.rect(self.screen, c.WHITE, c.SPRITE)
+        pygame.display.update()
+
+
+def main():
+    game = Game()
+
+    while True:
+        game.Event()
+        game.Update()
+        game.Draw()
+
+
+if __name__ == "__main__":
+    main()
