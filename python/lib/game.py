@@ -5,10 +5,25 @@ from pygame.locals import *
 
 class Game():
     def __init__(self):
+        # Pygame launch
         pygame.init()
         pygame.display.set_caption("SANTARENA")
-        self.screen = pygame.display.set_mode((c.SURFWIDTH, c.SURFHEIGHT))
+
+        # Screen
+        self.screenH = 500
+        self.screenW = 800
+        self.screen = pygame.display.set_mode((self.screenW, self.screenH))
+
+        # Character
         self.character = Character()
+
+    def Start():
+        """
+        Called once.
+        """
+        # Set sprite in the center of the screen
+        self.character.posH = (self.screenH / 2) - (self.spriteH / 2)
+        self.character.posW = (self.screenW / 2) - (self.spriteW / 2)
 
     def Event(self):
         for event in pygame.event.get():
@@ -17,7 +32,7 @@ class Game():
                 sys.exit()
 
     def Update(self):
-        pass
+        self.character.Update()
 
     def Draw(self):
         self.screen.fill(c.BLUE)
