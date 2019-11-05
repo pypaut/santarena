@@ -11,8 +11,8 @@ class Character():
         self.spriteW = 50
 
         # Object
-        self.sprite = (self.posW / 2, self.posH, self.spriteW, self.spriteH)
+        self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)
 
 
     def Update(self):
-        self.sprite = (self.posW / 2, self.posH, self.spriteW, self.spriteH)
+        self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)

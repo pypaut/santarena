@@ -2,6 +2,7 @@ from lib.game import Game
 
 def main():
     game = Game()
+    game.Start()
 
     while True:
         game.Event()

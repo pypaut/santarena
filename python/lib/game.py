@@ -17,13 +17,13 @@ class Game():
         # Character
         self.character = Character()
 
-    def Start():
+    def Start(self):
         """
         Called once.
         """
-        # Set sprite in the center of the screen
-        self.character.posH = (self.screenH / 2) - (self.spriteH / 2)
-        self.character.posW = (self.screenW / 2) - (self.spriteW / 2)
+        # Set the character sprite in the center of the screen
+        self.character.posH = (self.screenH / 2) - (self.character.spriteH / 2)
+        self.character.posW = (self.screenW / 2) - (self.character.spriteW / 2)
 
     def Event(self):
         for event in pygame.event.get():
