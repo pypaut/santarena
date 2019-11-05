@@ -6,8 +6,11 @@ SURFHEIGHT   = 500
 TILESIZE     = 50
 
 # Colors
-WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+colors = [
+    (255, 255, 255), # White
+    (0, 0, 255),     # Blue
+    (100, 100, 100), # Grey
+]
 
 
 # Shapes
