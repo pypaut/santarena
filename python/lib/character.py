@@ -1,6 +1,7 @@
 import lib.constants as c
 
-class Character():
+
+class Character:
     def __init__(self):
         # Position
         self.posH = 0
@@ -13,6 +14,5 @@ class Character():
         # Object
         self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)
 
-
-    def Update(self):
+    def update(self):
         self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)

@@ -1,12 +1,13 @@
 import lib.constants as c
 import random
 
+
 class Tilemap():
-    def __init__(self, H, W, tilesize):
+    def __init__(self, h, w, tilesize):
         # Tiles number
-        self.tilesH = H // tilesize
-        self.tilesW = W // tilesize
+        self.tilesH = h // tilesize
+        self.tilesW = w // tilesize
 
         self.map = [
-            c.colors[random.randint(0,2)] for i in range(self.tilesH * self.tilesW)
+            c.colors[random.randint(0, 2)] for i in range(self.tilesH * self.tilesW)
         ]

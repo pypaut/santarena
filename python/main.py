@@ -1,13 +1,14 @@
 from lib.game import Game
 
+
 def main():
     game = Game()
-    game.Start()
+    game.start()
 
     while True:
-        game.Event()
-        game.Update()
-        game.Draw()
+        game.event()
+        game.update()
+        game.draw()
 
 
 if __name__ == "__main__":
