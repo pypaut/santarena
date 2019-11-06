@@ -50,5 +50,5 @@ class Game:
                         self.tilesize,
                         self.tilesize)
                 pygame.draw.rect(self.screen, self.tilemap.map[i * j], rect)
-        pygame.draw.rect(self.screen, c.colors[0], self.character.sprite)
+        pygame.draw.rect(self.screen, c.colors['RED'], self.character.sprite)
         pygame.display.update()

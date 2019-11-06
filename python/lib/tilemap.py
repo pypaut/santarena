@@ -1,5 +1,4 @@
 import lib.constants as c
-import random
 
 
 class Tilemap():
@@ -9,6 +8,6 @@ class Tilemap():
         self.tilesW = w // tilesize
 
         self.map = [
-            c.colors[random.randint(0, 2)]
+            c.colors['WHITE']
             for i in range(self.tilesH * self.tilesW)
         ]
