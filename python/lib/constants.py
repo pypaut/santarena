@@ -1,9 +1,9 @@
 # Set useful constants here.
 
 # Sizes
-SURFWIDTH    = 800
-SURFHEIGHT   = 500
-TILESIZE     = 50
+SURFWIDTH = 800
+SURFHEIGHT = 500
+TILESIZE = 50
 
 # Colors
 colors = [

@@ -9,5 +9,6 @@ class Tilemap():
         self.tilesW = w // tilesize
 
         self.map = [
-            c.colors[random.randint(0, 2)] for i in range(self.tilesH * self.tilesW)
+            c.colors[random.randint(0, 2)]
+            for i in range(self.tilesH * self.tilesW)
         ]

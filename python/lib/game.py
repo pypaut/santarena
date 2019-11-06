@@ -1,6 +1,6 @@
 import pygame
 import sys
-from pygame.locals import *
+from pygame.locals import QUIT
 
 import lib.constants as c
 from lib.character import Character
@@ -45,7 +45,10 @@ class Game:
     def draw(self):
         for i in range(self.tilemap.tilesH):
             for j in range(self.tilemap.tilesW):
-                rect = (j * self.tilesize, i * self.tilesize, self.tilesize, self.tilesize)
+                rect = (j * self.tilesize,
+                        i * self.tilesize,
+                        self.tilesize,
+                        self.tilesize)
                 pygame.draw.rect(self.screen, self.tilemap.map[i * j], rect)
         pygame.draw.rect(self.screen, c.colors[0], self.character.sprite)
         pygame.display.update()

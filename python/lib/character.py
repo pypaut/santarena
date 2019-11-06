@@ -1,6 +1,3 @@
-import lib.constants as c
-
-
 class Character:
     def __init__(self):
         # Position
