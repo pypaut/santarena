@@ -8,6 +8,9 @@ class Character:
         self.spriteH = 50
         self.spriteW = 50
 
+        # Movement
+        self.speed = 1
+
         # Object
         self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)
 

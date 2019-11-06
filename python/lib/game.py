@@ -38,11 +38,22 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_w]:  # Up
+            self.character.posH -= self.character.speed
+        if keys[pygame.K_s]:  # Down
+            self.character.posH += self.character.speed
+        if keys[pygame.K_a]:  # Left
+            self.character.posW -= self.character.speed
+        if keys[pygame.K_d]:  # Right
+            self.character.posW += self.character.speed
 
     def update(self):
         self.character.update()
 
     def draw(self):
+        # Tilemap
         for i in range(self.tilemap.tilesH):
             for j in range(self.tilemap.tilesW):
                 rect = (j * self.tilesize,
@@ -50,5 +61,7 @@ class Game:
                         self.tilesize,
                         self.tilesize)
                 pygame.draw.rect(self.screen, self.tilemap.map[i * j], rect)
+
+        # Character
         pygame.draw.rect(self.screen, c.colors['RED'], self.character.sprite)
         pygame.display.update()
