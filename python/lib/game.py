@@ -1,7 +1,6 @@
 import pygame
 import sys
 from pygame.locals import QUIT
-from pygame.time import Clock
 
 import lib.constants as c
 from lib.character import Character
@@ -13,7 +12,6 @@ class Game:
         # Pygame launch
         pygame.init()
         pygame.display.set_caption("SANTARENA")
-        self.fps = 60
 
         # Screen
         self.screenH = 500
@@ -40,17 +38,7 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        keys = pygame.key.get_pressed()
-        speed = self.character.speed
-
-        if keys[pygame.K_w]:  # Up
-            self.character.posH -= speed * Clock().tick(self.fps)
-        if keys[pygame.K_s]:  # Down
-            self.character.posH += speed * Clock().tick(self.fps)
-        if keys[pygame.K_a]:  # Left
-            self.character.posW -= speed * Clock().tick(self.fps)
-        if keys[pygame.K_d]:  # Right
-            self.character.posW += speed * Clock().tick(self.fps)
+        self.character.move(pygame.key.get_pressed())
 
     def update(self):
         self.character.update()
