@@ -2,7 +2,7 @@ import pygame
 import sys
 from pygame.locals import QUIT
 
-import lib.constants as c
+from lib.constants import TILESIZE, COLORS
 from lib.character import Character
 from lib.tilemap import Tilemap
 
@@ -13,14 +13,14 @@ class Game:
         pygame.init()
         pygame.display.set_caption("SANTARENA")
 
-        # Screen
+        # Screen (camera)
         self.screenH = 500
         self.screenW = 800
-        self.screen = pygame.display.set_mode((self.screenW, self.screenH))
+        self.screen = pygame.display.set_mode((self.screenW,
+                                               self.screenH))
 
         # Tilemap
-        self.tilesize = 50
-        self.tilemap = Tilemap(self.screenH, self.screenW, self.tilesize)
+        self.tilemap = Tilemap(self.screenH, self.screenW)
 
         # Character
         self.character = Character()
@@ -47,12 +47,12 @@ class Game:
         # Tilemap
         for i in range(self.tilemap.tilesH):
             for j in range(self.tilemap.tilesW):
-                rect = (j * self.tilesize,
-                        i * self.tilesize,
-                        self.tilesize,
-                        self.tilesize)
+                rect = (j * TILESIZE,
+                        i * TILESIZE,
+                        TILESIZE,
+                        TILESIZE)
                 pygame.draw.rect(self.screen, self.tilemap.map[i * j], rect)
 
         # Character
-        pygame.draw.rect(self.screen, c.colors['RED'], self.character.sprite)
+        pygame.draw.rect(self.screen, COLORS['RED'], self.character.sprite)
         pygame.display.update()

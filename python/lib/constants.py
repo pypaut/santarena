@@ -1,4 +1,4 @@
-colors = {
+COLORS = {
     'WHITE': (255, 255, 255),
     'BLUE': (0, 0, 255),
     'GREY': (100, 100, 100),
@@ -6,3 +6,5 @@ colors = {
 }
 
 FPS = 60
+
+TILESIZE = 50
