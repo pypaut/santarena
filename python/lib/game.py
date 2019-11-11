@@ -3,7 +3,7 @@ import sys
 from pygame.locals import QUIT
 
 from lib.camera import Camera
-from lib.constants import TILESIZE, COLORS
+from lib.constants import COLORS
 from lib.character import Character
 from lib.tilemap import Tilemap
 
@@ -48,15 +48,7 @@ class Game:
 
     def draw(self):
         # Tilemap
-        for i in range(self.tilemap.tilesH):
-            for j in range(self.tilemap.tilesW):
-                rect = (j * TILESIZE + self.camera.posW,
-                        i * TILESIZE + self.camera.posH,
-                        TILESIZE,
-                        TILESIZE)
-                pygame.draw.rect(self.camera.screen,
-                                 self.tilemap.map[i * j],
-                                 rect)
+        self.camera.draw(self.tilemap)
 
         # Character
         pygame.draw.rect(self.camera.screen,

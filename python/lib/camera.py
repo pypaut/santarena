@@ -1,6 +1,6 @@
 import pygame
 from pygame.time import Clock
-from lib.constants import FPS, SPEED
+from lib.constants import FPS, SPEED, TILESIZE
 
 
 class Camera:
@@ -30,3 +30,14 @@ class Camera:
             self.posW += self.speed * Clock().tick(FPS)
         if keys[pygame.K_d]:  # Right
             self.posW -= self.speed * Clock().tick(FPS)
+
+    def draw(self, tilemap):
+        for i in range(tilemap.tilesH):
+            for j in range(tilemap.tilesW):
+                rect = (j * TILESIZE + self.posW,
+                        i * TILESIZE + self.posH,
+                        TILESIZE,
+                        TILESIZE)
+                pygame.draw.rect(self.screen,
+                                 tilemap.map[i * j],
+                                 rect)
