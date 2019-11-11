@@ -1,6 +1,6 @@
 import pygame
 from pygame.time import Clock
-from lib.constants import FPS
+from lib.constants import FPS, SPEED
 
 
 class Character:
@@ -10,14 +10,14 @@ class Character:
         self.posW = 0
 
         # Size
-        self.spriteH = 50
-        self.spriteW = 50
+        self.rectH = 50
+        self.rectW = 50
 
         # Movement
-        self.speed = 0.5
+        self.speed = SPEED
 
         # Object
-        self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)
+        self.rect = (self.posW, self.posH, self.rectW, self.rectH)
 
     def move(self, keys):
         """
@@ -33,4 +33,4 @@ class Character:
             self.posW += self.speed * Clock().tick(FPS)
 
     def update(self):
-        self.sprite = (self.posW, self.posH, self.spriteW, self.spriteH)
+        self.rect = (self.posW, self.posH, self.rectW, self.rectH)

@@ -5,6 +5,8 @@ COLORS = {
     'RED': (200, 20, 20),
 }
 
-FPS = 60
+FPS = 120
+
+SPEED = 1
 
 TILESIZE = 50
