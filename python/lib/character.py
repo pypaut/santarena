@@ -36,8 +36,16 @@ class Character:
         if keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
             self.posW += self.speed * Clock().tick(FPS)
 
-    def update(self):
-        self.rect = (self.posW, self.posH, self.rectW, self.rectH)
+    def update(self, camera):
+        """
+        Update the rectangle object which is drawn on screen.
+        From tilemap coordinates to screen coordinates.
+        """
+        self.rect = (self.posW - camera.posW,
+                     self.posH - camera.posH,
+                     self.rectW,
+                     self.rectH)
+
     def draw(self, camera):
         pygame.draw.rect(camera.screen,
                          COLORS['RED'],

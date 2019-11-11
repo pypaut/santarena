@@ -38,8 +38,8 @@ class Camera:
     def draw(self, tilemap):
         for i in range(tilemap.tilesH):
             for j in range(tilemap.tilesW):
-                rect = (j * TILESIZE + self.posW,
-                        i * TILESIZE + self.posH,
+                rect = (j * TILESIZE - self.posW,
+                        i * TILESIZE - self.posH,
                         TILESIZE,
                         TILESIZE)
                 pygame.draw.rect(self.screen,

@@ -40,11 +40,11 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        # self.character.move(pygame.key.get_pressed())
+        self.character.move(pygame.key.get_pressed())
         self.camera.move(pygame.key.get_pressed())
 
     def update(self):
-        self.character.update()
+        self.character.update(self.camera)
 
     def draw(self):
         self.camera.draw(self.tilemap)    # Tilemap
