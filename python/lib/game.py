@@ -3,7 +3,7 @@ import sys
 from pygame.locals import QUIT
 
 from lib.camera import Camera
-from lib.constants import COLORS
+from lib.constants import MAP_H, MAP_W
 from lib.character import Character
 from lib.tilemap import Tilemap
 
@@ -18,7 +18,7 @@ class Game:
         self.camera = Camera(500, 800)
 
         # Tilemap
-        self.tilemap = Tilemap(800, 12000)
+        self.tilemap = Tilemap(MAP_H, MAP_W)
 
         # Character
         self.character = Character()

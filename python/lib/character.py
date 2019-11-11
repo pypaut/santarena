@@ -1,6 +1,6 @@
 import pygame
 from pygame.time import Clock
-from lib.constants import FPS, SPEED
+from lib.constants import FPS, SPEED, COLORS, MAP_H, MAP_W
 
 
 class Character:
@@ -23,13 +23,17 @@ class Character:
         """
         Update position according to pressed keys.
         """
-        if keys[pygame.K_w]:  # Up
+        # Up
+        if keys[pygame.K_w] and self.posH > 20:
             self.posH -= self.speed * Clock().tick(FPS)
-        if keys[pygame.K_s]:  # Down
+        # Down
+        if keys[pygame.K_s] and self.posH < MAP_H - self.rectH - 20:
             self.posH += self.speed * Clock().tick(FPS)
-        if keys[pygame.K_a]:  # Left
+        # Left
+        if keys[pygame.K_a] and self.posW > 20:
             self.posW -= self.speed * Clock().tick(FPS)
-        if keys[pygame.K_d]:  # Right
+        # Right
+        if keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
             self.posW += self.speed * Clock().tick(FPS)
 
     def update(self):
