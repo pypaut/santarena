@@ -47,12 +47,7 @@ class Game:
         self.character.update()
 
     def draw(self):
-        # Tilemap
-        self.camera.draw(self.tilemap)
-
-        # Character
-        pygame.draw.rect(self.camera.screen,
-                         COLORS['RED'],
-                         self.character.rect)
+        self.camera.draw(self.tilemap)    # Tilemap
+        self.character.draw(self.camera)  # Character
 
         pygame.display.update()

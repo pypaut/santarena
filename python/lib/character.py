@@ -38,3 +38,7 @@ class Character:
 
     def update(self):
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
+    def draw(self, camera):
+        pygame.draw.rect(camera.screen,
+                         COLORS['RED'],
+                         self.rect)
