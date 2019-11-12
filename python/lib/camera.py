@@ -18,21 +18,35 @@ class Camera:
 
         self.screen = pygame.display.set_mode((self.w, self.h))
 
-    def move(self, keys):
+    def move(self, keys, character):
         """
         Update position according to pressed keys.
         """
+        centerH = self.posH + self.h / 2
+        centerW = self.posW + self.w / 2
         # Up
-        if keys[pygame.K_w] and self.posH > 0:
+        if (keys[pygame.K_w]
+            and self.posH > 0
+            and character.posH <= centerH
+        ):
             self.posH -= self.speed * Clock().tick(FPS)
         # Down
-        if keys[pygame.K_s] and self.posH < MAP_H - self.h:
+        if (keys[pygame.K_s]
+            and self.posH < MAP_H - self.h
+            and character.posH >= centerH
+        ):
             self.posH += self.speed * Clock().tick(FPS)
         # Left
-        if keys[pygame.K_a] and self.posW > 0:
+        if (keys[pygame.K_a]
+            and self.posW > 0
+            and character.posW <= centerW
+        ):
             self.posW -= self.speed * Clock().tick(FPS)
         # Right
-        if keys[pygame.K_d] and self.posW < MAP_W - self.w:
+        if (keys[pygame.K_d]
+            and self.posW < MAP_W - self.w
+            and character.posW >= centerW
+        ):
             self.posW += self.speed * Clock().tick(FPS)
 
     def draw(self, tilemap):
