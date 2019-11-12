@@ -1,6 +1,7 @@
 import pygame
 from pygame.time import Clock
 from lib.constants import FPS, SPEED, COLORS, MAP_H, MAP_W
+from lib.projectile import Projectile
 
 
 class Character:
@@ -20,6 +21,12 @@ class Character:
 
         # Object
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
+
+        # Projectiles
+        self.projectiles = []
+
+    def shoot(self):
+        self.projectiles.append(Projectile(self.posH, self.posW, self.dirH, self.dirW))
 
     def event(self, keys):
         """
@@ -71,18 +78,29 @@ class Character:
             self.dirH = 0
         else:
             pass
+        # Shoot projectile
+        if keys[pygame.K_SPACE]:
+            self.shoot()
 
     def update(self, camera):
         """
         Update the rectangle object which is drawn on screen.
         From tilemap coordinates to screen coordinates.
+
+        Update projectiles positions.
         """
         self.rect = (self.posW - camera.posW,
                      self.posH - camera.posH,
                      self.rectW,
                      self.rectH)
+        for projectile in self.projectiles:
+            projectile.update(camera)
+            if projectile.isOut():
+                self.projectiles.remove(projectile)
 
     def draw(self, camera):
         pygame.draw.rect(camera.screen,
                          COLORS['RED'],
                          self.rect)
+        for projectile in self.projectiles:
+            projectile.draw(camera)
