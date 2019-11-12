@@ -19,9 +19,9 @@ class Character:
         # Object
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
 
-    def move(self, keys):
+    def event(self, keys):
         """
-        Update position according to pressed keys.
+        Update according to pressed keys.
         """
         # Up
         if keys[pygame.K_w] and self.posH > 20:

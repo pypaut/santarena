@@ -40,7 +40,7 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        self.character.move(pygame.key.get_pressed())
+        self.character.event(pygame.key.get_pressed())
         self.camera.move(pygame.key.get_pressed(), self.character)
 
     def update(self):
