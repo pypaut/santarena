@@ -15,6 +15,8 @@ class Character:
 
         # Movement
         self.speed = SPEED
+        self.dirH = 0
+        self.dirW = 1
 
         # Object
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
@@ -35,6 +37,40 @@ class Character:
         # Right
         if keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
             self.posW += self.speed * Clock().tick(FPS)
+        # Look down right
+        if keys[pygame.K_k] and keys[pygame.K_l]:
+            self.dirH = 1
+            self.dirW = 1
+        # Look down left
+        elif keys[pygame.K_k] and keys[pygame.K_j]:
+            self.dirH = 1
+            self.dirW = -1
+        # Look up right
+        elif keys[pygame.K_i] and keys[pygame.K_l]:
+            self.dirH = -1
+            self.dirW = 1
+        # Look up left
+        elif keys[pygame.K_i] and keys[pygame.K_j]:
+            self.dirH = -1
+            self.dirW = -1
+        # Look down
+        elif keys[pygame.K_k]:
+            self.dirH = 1
+            self.dirW = 0
+        # Look up
+        elif keys[pygame.K_i]:
+            self.dirH = -1
+            self.dirW = 0
+        # Look left
+        elif keys[pygame.K_j]:
+            self.dirW = -1
+            self.dirH = 0
+        # Look right
+        elif keys[pygame.K_l]:
+            self.dirW = 1
+            self.dirH = 0
+        else:
+            pass
 
     def update(self, camera):
         """
