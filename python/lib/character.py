@@ -25,10 +25,13 @@ class Character:
         # Projectiles
         self.projectiles = []
 
-    def shoot(self):
-        self.projectiles.append(Projectile(self.posH, self.posW, self.dirH, self.dirW))
+    def shoot(self, camera):
+        self.projectiles.append(Projectile(self.posH - camera.posH,
+                                           self.posW - camera.posW,
+                                           self.dirH,
+                                           self.dirW))
 
-    def event(self, keys):
+    def event(self, keys, camera):
         """
         Update according to pressed keys.
         """
@@ -80,7 +83,7 @@ class Character:
             pass
         # Shoot projectile
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            self.shoot(camera)
 
     def update(self, camera):
         """
