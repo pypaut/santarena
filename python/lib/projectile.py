@@ -9,7 +9,7 @@ class Projectile:
         self.dirH = dirH
         self.dirW = dirW
 
-        self.speed = 2
+        self.speed = 1
 
         self.rect = (self.posW, self.posH, 20, 20)
 

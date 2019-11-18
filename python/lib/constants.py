@@ -7,7 +7,7 @@ COLORS = {
 
 FPS = 120
 
-SPEED = 1
+SPEED = 0.5
 
 TILESIZE = 50
 

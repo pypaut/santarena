@@ -23,12 +23,14 @@ class Character:
 
         # Projectiles
         self.projectiles = []
+        self.shoot_cooldown = 200
 
     def shoot(self, camera):
         self.projectiles.append(Projectile(self.posH - camera.posH,
                                            self.posW - camera.posW,
                                            self.dirH,
                                            self.dirW))
+        self.shoot_cooldown = 200
 
     def event(self, keys, camera, dt):
         """
@@ -81,7 +83,7 @@ class Character:
         else:
             pass
         # Shoot projectile
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and self.shoot_cooldown <= 0:
             self.shoot(camera)
 
     def update(self, camera, dt):
@@ -91,10 +93,16 @@ class Character:
 
         Update projectiles positions.
         """
+        # Update shoot cooldown
+        self.shoot_cooldown -= dt
+
+        # Update rect
         self.rect = (self.posW - camera.posW,
                      self.posH - camera.posH,
                      self.rectW,
                      self.rectH)
+
+        # Update projectiles
         for projectile in self.projectiles:
             projectile.update(camera, dt)
             if projectile.isOut():
