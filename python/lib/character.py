@@ -1,6 +1,5 @@
 import pygame
-from pygame.time import Clock
-from lib.constants import FPS, SPEED, COLORS, MAP_H, MAP_W
+from lib.constants import SPEED, COLORS, MAP_H, MAP_W
 from lib.projectile import Projectile
 
 
@@ -31,22 +30,22 @@ class Character:
                                            self.dirH,
                                            self.dirW))
 
-    def event(self, keys, camera):
+    def event(self, keys, camera, dt):
         """
         Update according to pressed keys.
         """
         # Up
         if keys[pygame.K_w] and self.posH > 20:
-            self.posH -= self.speed * Clock().tick(FPS)
+            self.posH -= self.speed * dt
         # Down
         if keys[pygame.K_s] and self.posH < MAP_H - self.rectH - 20:
-            self.posH += self.speed * Clock().tick(FPS)
+            self.posH += self.speed * dt
         # Left
         if keys[pygame.K_a] and self.posW > 20:
-            self.posW -= self.speed * Clock().tick(FPS)
+            self.posW -= self.speed * dt
         # Right
         if keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
-            self.posW += self.speed * Clock().tick(FPS)
+            self.posW += self.speed * dt
         # Look down right
         if keys[pygame.K_k] and keys[pygame.K_l]:
             self.dirH = 1
@@ -85,7 +84,7 @@ class Character:
         if keys[pygame.K_SPACE]:
             self.shoot(camera)
 
-    def update(self, camera):
+    def update(self, camera, dt):
         """
         Update the rectangle object which is drawn on screen.
         From tilemap coordinates to screen coordinates.
@@ -97,7 +96,7 @@ class Character:
                      self.rectW,
                      self.rectH)
         for projectile in self.projectiles:
-            projectile.update(camera)
+            projectile.update(camera, dt)
             if projectile.isOut():
                 self.projectiles.remove(projectile)
 

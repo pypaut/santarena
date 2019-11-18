@@ -1,9 +1,10 @@
 import pygame
 import sys
 from pygame.locals import QUIT
+from pygame.time import Clock
 
 from lib.camera import Camera
-from lib.constants import MAP_H, MAP_W
+from lib.constants import MAP_H, MAP_W, FPS
 from lib.character import Character
 from lib.tilemap import Tilemap
 
@@ -23,6 +24,10 @@ class Game:
         # Character
         self.character = Character()
 
+        # Clock
+        self.clock = Clock()
+        self.dt = 0
+
     def start(self):
         """
         Called once.
@@ -40,11 +45,12 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        self.character.event(pygame.key.get_pressed(), self.camera)
-        self.camera.move(pygame.key.get_pressed(), self.character)
+        self.character.event(pygame.key.get_pressed(), self.camera, self.dt)
+        self.camera.move(pygame.key.get_pressed(), self.character, self.dt)
 
     def update(self):
-        self.character.update(self.camera)
+        self.character.update(self.camera, self.dt)
+        self.dt = self.clock.tick(FPS)
 
     def draw(self):
         self.camera.draw(self.tilemap)    # Tilemap
