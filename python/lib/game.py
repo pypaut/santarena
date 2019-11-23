@@ -72,7 +72,7 @@ class Game:
 
         # Enemies
         for enemy in self.enemies:
-            enemy.update(self.character, self.camera, self.dt)
+            enemy.update(self.character, self.enemies, self.camera, self.dt)
 
         # Tic tac
         self.dt = self.clock.tick(FPS)
