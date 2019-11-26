@@ -76,7 +76,7 @@ class Enemy:
         self.posH += self.dirH * self.speed * dt
 
         # Check collision with other enemies
-        for enemy in enemies:
+        for enemy in [character] + enemies:
             if enemy != self and self.collides(enemy):
                 self.reset_contact(enemy, dt)
 
