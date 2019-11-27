@@ -71,6 +71,9 @@ class Game:
         self.camera.move(pygame.key.get_pressed(), self.character, self.dt)
 
     def update(self):
+        # Map
+        self.tilemap.update(self.camera)
+
         # Character & projectiles
         self.character.update(self.camera, self.dt)
 
