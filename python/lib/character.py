@@ -26,10 +26,14 @@ class Character:
         self.shoot_cooldown = 200
 
     def shoot(self, camera):
-        self.projectiles.append(Projectile(self.posH - camera.posH,
-                                           self.posW - camera.posW,
-                                           self.dirH,
-                                           self.dirW))
+        self.projectiles.append(
+            Projectile(
+                self.posH - camera.posH,
+                self.posW - camera.posW,
+                self.dirH,
+                self.dirW,
+            )
+        )
         self.shoot_cooldown = 200
 
     def event(self, keys, camera, dt):
@@ -97,10 +101,12 @@ class Character:
         self.shoot_cooldown -= dt
 
         # Update rect
-        self.rect = (self.posW - camera.posW,
-                     self.posH - camera.posH,
-                     self.rectW,
-                     self.rectH)
+        self.rect = (
+            self.posW - camera.posW,
+            self.posH - camera.posH,
+            self.rectW,
+            self.rectH,
+        )
 
         # Update projectiles
         for projectile in self.projectiles:
@@ -109,8 +115,6 @@ class Character:
                 self.projectiles.remove(projectile)
 
     def draw(self, camera):
-        pygame.draw.rect(camera.screen,
-                         COLORS['RED'],
-                         self.rect)
+        pygame.draw.rect(camera.screen, COLORS["RED"], self.rect)
         for projectile in self.projectiles:
             projectile.draw(camera)

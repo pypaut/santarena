@@ -24,33 +24,33 @@ class Camera:
         centerH = self.posH + self.h / 2
         centerW = self.posW + self.w / 2
         # Up
-        if (keys[pygame.K_w]
-                and self.posH > 0
-                and character.posH <= centerH):
+        if keys[pygame.K_w] and self.posH > 0 and character.posH <= centerH:
             self.posH -= self.speed * dt
         # Down
-        if (keys[pygame.K_s]
-                and self.posH < MAP_H - self.h
-                and character.posH >= centerH):
+        if (
+            keys[pygame.K_s]
+            and self.posH < MAP_H - self.h
+            and character.posH >= centerH
+        ):
             self.posH += self.speed * dt
         # Left
-        if (keys[pygame.K_a]
-                and self.posW > 0
-                and character.posW <= centerW):
+        if keys[pygame.K_a] and self.posW > 0 and character.posW <= centerW:
             self.posW -= self.speed * dt
         # Right
-        if (keys[pygame.K_d]
-                and self.posW < MAP_W - self.w
-                and character.posW >= centerW):
+        if (
+            keys[pygame.K_d]
+            and self.posW < MAP_W - self.w
+            and character.posW >= centerW
+        ):
             self.posW += self.speed * dt
 
     def draw(self, tilemap):
         for i in range(tilemap.tilesH):
             for j in range(tilemap.tilesW):
-                rect = (j * TILESIZE - self.posW,
-                        i * TILESIZE - self.posH,
-                        TILESIZE,
-                        TILESIZE)
-                pygame.draw.rect(self.screen,
-                                 tilemap.map[i * j],
-                                 rect)
+                rect = (
+                    j * TILESIZE - self.posW,
+                    i * TILESIZE - self.posH,
+                    TILESIZE,
+                    TILESIZE,
+                )
+                pygame.draw.rect(self.screen, tilemap.map[i * j], rect)
