@@ -33,7 +33,7 @@ class Enemy:
         )
         return condH and condW
 
-    def reset_contact(self, enemy, dt):
+    def reset_contact(self, enemy):
         """
         Reset position to contact position, before collision.
         """
@@ -78,7 +78,7 @@ class Enemy:
         # Check collision with other enemies
         for enemy in [character] + enemies:
             if enemy != self and self.collides(enemy):
-                self.reset_contact(enemy, dt)
+                self.reset_contact(enemy)
 
         # Camera position
         self.rect = (
