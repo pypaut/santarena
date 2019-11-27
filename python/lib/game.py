@@ -83,7 +83,7 @@ class Game:
 
     def draw(self):
         # Tilemap
-        self.camera.draw(self.tilemap)
+        self.tilemap.draw(self.camera)
 
         # Enemies
         for enemy in self.enemies:

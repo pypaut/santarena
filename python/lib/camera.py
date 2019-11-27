@@ -1,5 +1,5 @@
 import pygame
-from lib.constants import SPEED, TILESIZE, MAP_H, MAP_W
+from lib.constants import SPEED, MAP_H, MAP_W
 
 
 class Camera:
@@ -45,12 +45,4 @@ class Camera:
             self.posW += self.speed * dt
 
     def draw(self, tilemap):
-        for i in range(tilemap.tilesH):
-            for j in range(tilemap.tilesW):
-                rect = (
-                    j * TILESIZE - self.posW,
-                    i * TILESIZE - self.posH,
-                    TILESIZE,
-                    TILESIZE,
-                )
-                pygame.draw.rect(self.screen, tilemap.map[i * j], rect)
+        pass
