@@ -18,8 +18,12 @@ class Tilemap:
         # Outer bounds
         for i in range(self.tilesH):
             for j in range(self.tilesW):
-                if (i == 0 or i == self.tilesH - 1
-                        or j == 0 or j == self.tilesW - 1):
+                if (
+                    i == 0
+                    or i == self.tilesH - 1
+                    or j == 0
+                    or j == self.tilesW - 1
+                ):
                     self.blocks.append(Block(i * TILESIZE, j * TILESIZE))
 
         # Map colors
