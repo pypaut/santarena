@@ -61,7 +61,9 @@ class Game:
                 sys.exit()
 
         # Character
-        self.character.event(pygame.key.get_pressed(), self.camera, self.dt)
+        self.character.event(
+            pygame.key.get_pressed(), self.camera, self.tilemap.blocks, self.dt
+        )
 
         # Enemies
         for enemy in self.enemies:
@@ -75,7 +77,7 @@ class Game:
         self.tilemap.update(self.camera)
 
         # Character & projectiles
-        self.character.update(self.camera, self.dt)
+        self.character.update(self.camera, self.tilemap.blocks, self.dt)
 
         # Enemies
         for enemy in self.enemies:
