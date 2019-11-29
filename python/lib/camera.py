@@ -23,21 +23,27 @@ class Camera:
         """
         centerH = self.posH + self.h / 2
         centerW = self.posW + self.w / 2
+        # Vertically blocked
+        if keys[pygame.K_w] and keys[pygame.K_s]:
+            pass
         # Up
-        if keys[pygame.K_w] and self.posH > 0 and character.posH <= centerH:
+        elif keys[pygame.K_w] and self.posH > 0 and character.posH <= centerH:
             self.posH -= self.speed * dt
         # Down
-        if (
+        elif (
             keys[pygame.K_s]
             and self.posH < MAP_H - self.h
             and character.posH >= centerH
         ):
             self.posH += self.speed * dt
+        # Horizontally blocked
+        if keys[pygame.K_a] and keys[pygame.K_d]:
+            pass
         # Left
-        if keys[pygame.K_a] and self.posW > 0 and character.posW <= centerW:
+        elif keys[pygame.K_a] and self.posW > 0 and character.posW <= centerW:
             self.posW -= self.speed * dt
         # Right
-        if (
+        elif (
             keys[pygame.K_d]
             and self.posW < MAP_W - self.w
             and character.posW >= centerW

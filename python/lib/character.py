@@ -16,7 +16,7 @@ class Character:
         # Movement
         self.speed = SPEED
         self.dirH = 0
-        self.dirW = 1
+        self.dirW = 0
 
         # Object
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
@@ -24,14 +24,16 @@ class Character:
         # Projectiles
         self.projectiles = []
         self.shoot_cooldown = 200
+        self.shoot_dirH = 0
+        self.shoot_dirW = 1
 
     def shoot(self, camera):
         self.projectiles.append(
             Projectile(
                 self.posH - camera.posH,
                 self.posW - camera.posW,
-                self.dirH,
-                self.dirW,
+                self.shoot_dirH,
+                self.shoot_dirW,
             )
         )
         self.shoot_cooldown = 200
@@ -40,50 +42,64 @@ class Character:
         """
         Update according to pressed keys.
         """
+        # Vertically blocked
+        if keys[pygame.K_w] and keys[pygame.K_s]:
+            self.dirH = 0
         # Up
-        if keys[pygame.K_w] and self.posH > 20:
+        elif keys[pygame.K_w] and self.posH > 20:
             self.posH -= self.speed * dt
+            self.dirH = -1
         # Down
-        if keys[pygame.K_s] and self.posH < MAP_H - self.rectH - 20:
+        elif keys[pygame.K_s] and self.posH < MAP_H - self.rectH - 20:
             self.posH += self.speed * dt
+            self.dirH = 1
+        else:
+            self.dirH = 0
+        # Horizontally blocked
+        if keys[pygame.K_a] and keys[pygame.K_d]:
+            self.dirW = 0
         # Left
-        if keys[pygame.K_a] and self.posW > 20:
+        elif keys[pygame.K_a] and self.posW > 20:
             self.posW -= self.speed * dt
+            self.dirW = -1
         # Right
-        if keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
+        elif keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
             self.posW += self.speed * dt
+            self.dirW = 1
+        else:
+            self.dirW = 0
         # Look down right
         if keys[pygame.K_k] and keys[pygame.K_l]:
-            self.dirH = 1
-            self.dirW = 1
+            self.shoot_dirH = 1
+            self.shoot_dirW = 1
         # Look down left
         elif keys[pygame.K_k] and keys[pygame.K_j]:
-            self.dirH = 1
-            self.dirW = -1
+            self.shoot_dirH = 1
+            self.shoot_dirW = -1
         # Look up right
         elif keys[pygame.K_i] and keys[pygame.K_l]:
-            self.dirH = -1
-            self.dirW = 1
+            self.shoot_dirH = -1
+            self.shoot_dirW = 1
         # Look up left
         elif keys[pygame.K_i] and keys[pygame.K_j]:
-            self.dirH = -1
-            self.dirW = -1
+            self.shoot_dirH = -1
+            self.shoot_dirW = -1
         # Look down
         elif keys[pygame.K_k]:
-            self.dirH = 1
-            self.dirW = 0
+            self.shoot_dirH = 1
+            self.shoot_dirW = 0
         # Look up
         elif keys[pygame.K_i]:
-            self.dirH = -1
-            self.dirW = 0
+            self.shoot_dirH = -1
+            self.shoot_dirW = 0
         # Look left
         elif keys[pygame.K_j]:
-            self.dirW = -1
-            self.dirH = 0
+            self.shoot_dirW = -1
+            self.shoot_dirH = 0
         # Look right
         elif keys[pygame.K_l]:
-            self.dirW = 1
-            self.dirH = 0
+            self.shoot_dirW = 1
+            self.shoot_dirH = 0
         else:
             pass
         # Shoot projectile
