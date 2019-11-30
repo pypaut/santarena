@@ -1,3 +1,4 @@
+import math
 import pygame
 
 from lib.constants import ENEMY_SPEED, COLORS
@@ -18,20 +19,40 @@ class Enemy:
         self.dirH = 0
         self.dirW = 0
 
-        # Rect
+        # Rect (camera position)
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
 
     def collides(self, enemy):
-        condH = enemy.posH > self.posH and enemy.posH < self.posH + self.rectH
-        condW = enemy.posW > self.posW and enemy.posW < self.posW + self.rectW
-        if condH and condW:
-            return True
+        condH = (
+            self.posH < enemy.posH + enemy.rectH
+            and self.posH > enemy.posH - self.rectH
+        )
+        condW = (
+            self.posW < enemy.posW + enemy.rectW
+            and self.posW > enemy.posW - self.rectW
+        )
+        return condH and condW
 
     def reset_contact(self, enemy):
         """
         Reset position to contact position, before collision.
         """
-        pass
+        # Collision direction
+        h = self.dirH - enemy.dirH
+        w = self.dirW - enemy.dirW
+        length = math.sqrt(h ** 2 + w ** 2)
+        collision_dirH = h / length
+        collision_dirW = w / length
+
+        # Overlap gap
+        gapH = collision_dirH * (self.rectH - abs(self.posH - enemy.posH))
+        gapW = collision_dirW * (self.rectW - abs(self.posW - enemy.posW))
+
+        # Reset
+        if gapH > gapW:
+            self.posH -= gapH
+        else:
+            self.posW -= gapW
 
     def event(self):
         """
@@ -43,21 +64,23 @@ class Enemy:
         """
         AI for movement.
         """
-        # Set direction
+        # Set direction and normalize
         h = character.posH - self.posH
-        self.dirH = h / abs(h)
         w = character.posW - self.posW
-        self.dirW = w / abs(w)
+        length = math.sqrt(h ** 2 + w ** 2)
+        self.dirH = h / length
+        self.dirW = w / length
 
         # Update position
-        self.posW += moveW
-        self.posH += moveH
+        self.posW += self.dirW * self.speed * dt
+        self.posH += self.dirH * self.speed * dt
 
         # Check collision with other enemies
-        for enemy in enemies:
-            if self.collides(enemy):
+        for enemy in [character] + enemies:
+            if enemy != self and self.collides(enemy):
                 self.reset_contact(enemy)
 
+        # Camera position
         self.rect = (
             self.posW - camera.posW,
             self.posH - camera.posH,

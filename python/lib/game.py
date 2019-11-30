@@ -35,13 +35,17 @@ class Game:
         """
         Called once.
         """
-        # Set the character sprite in the center of the screen
-        self.character.posH = (self.camera.h - self.character.rectH) / 2
-        self.character.posW = (self.camera.w - self.character.rectW) / 2
+        # Set the camera in the center of the map
+        self.camera.posH = (self.tilemap.h - self.camera.h) / 2
+        self.camera.posW = (self.tilemap.w - self.camera.w) / 2
 
-        # Set the camera in the center of the map FIXME
-        # self.camera.posH = (self.tilemap.h - self.camera.h) / 2
-        # self.camera.posW = (self.tilemap.w - self.camera.w) / 2
+        # Set the character sprite in the center of the screen
+        self.character.posH = (
+            self.camera.posH + (self.camera.h - self.character.rectH) / 2
+        )
+        self.character.posW = (
+            self.camera.posW + (self.camera.w - self.character.rectW) / 2
+        )
 
         # Spawn some enemies
         for _ in range(3):
@@ -57,7 +61,9 @@ class Game:
                 sys.exit()
 
         # Character
-        self.character.event(pygame.key.get_pressed(), self.camera, self.dt)
+        self.character.event(
+            pygame.key.get_pressed(), self.camera, self.tilemap.blocks, self.dt
+        )
 
         # Enemies
         for enemy in self.enemies:
@@ -67,8 +73,11 @@ class Game:
         self.camera.move(pygame.key.get_pressed(), self.character, self.dt)
 
     def update(self):
+        # Map
+        self.tilemap.update(self.camera)
+
         # Character & projectiles
-        self.character.update(self.camera, self.dt)
+        self.character.update(self.camera, self.tilemap.blocks, self.dt)
 
         # Enemies
         for enemy in self.enemies:
@@ -79,7 +88,7 @@ class Game:
 
     def draw(self):
         # Tilemap
-        self.camera.draw(self.tilemap)
+        self.tilemap.draw(self.camera)
 
         # Enemies
         for enemy in self.enemies:

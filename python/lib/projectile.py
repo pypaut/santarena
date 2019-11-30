@@ -19,12 +19,12 @@ class Projectile:
         self.rect = (self.posW, self.posH, 20, 20)
 
     def isOut(self):
-        return (self.posW >= MAP_W
-                or self.posW <= 0
-                or self.posH >= MAP_H
-                or self.posH <= 0)
+        return (
+            self.posW >= MAP_W
+            or self.posW <= 0
+            or self.posH >= MAP_H
+            or self.posH <= 0
+        )
 
     def draw(self, camera):
-        pygame.draw.rect(camera.screen,
-                         COLORS['BLUE'],
-                         self.rect)
+        pygame.draw.rect(camera.screen, COLORS["BLUE"], self.rect)
