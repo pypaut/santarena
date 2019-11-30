@@ -1,9 +1,10 @@
 import pygame
 from lib.constants import SPEED, COLORS, MAP_H, MAP_W
+from lib.movable import Movable
 from lib.projectile import Projectile
 
 
-class Character:
+class Character(Movable):
     def __init__(self):
         # Position
         self.posH = 0
@@ -26,33 +27,6 @@ class Character:
         self.shoot_cooldown = 200
         self.shoot_dirH = 0
         self.shoot_dirW = 1
-
-    # Collision
-    def collides(self, block):
-        condH = (
-            self.posH < block.posH + block.rectH
-            and self.posH > block.posH - self.rectH
-        )
-        condW = (
-            self.posW < block.posW + block.rectW
-            and self.posW > block.posW - self.rectW
-        )
-        return condH and condW
-
-    def reset_contact(self, block):
-        # Compute distances from outside
-        down_dist = abs(block.posH + block.rectH - self.posH)
-        up_dist = abs(self.posH + self.rectH - block.posH)
-        left_dist = abs(self.posW + self.rectW - block.posW)
-        right_dist = abs(block.posW + block.rectW - self.posW)
-
-        # Collision direction
-        gapH = min(down_dist, up_dist)
-        gapW = min(right_dist, left_dist)
-        if gapW > gapH:  # Vertical move
-            self.posH -= self.dirH * min(down_dist, up_dist)
-        if gapH > gapW:  # Horizontal move
-            self.posW -= self.dirW * min(right_dist, left_dist)
 
     def shoot(self, camera):
         self.projectiles.append(
