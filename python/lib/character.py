@@ -8,8 +8,6 @@ class Character:
         # Position
         self.posH = 0
         self.posW = 0
-        self.nextposH = 0
-        self.nextposW = 0
 
         # Size
         self.rectH = 50
@@ -19,8 +17,6 @@ class Character:
         self.speed = SPEED
         self.dirH = 0
         self.dirW = 0
-        self.moveH = 0
-        self.moveW = 0
 
         # Object
         self.rect = (self.posW, self.posH, self.rectW, self.rectH)
@@ -31,36 +27,32 @@ class Character:
         self.shoot_dirH = 0
         self.shoot_dirW = 1
 
+    # Collision
     def collides(self, block):
         condH = (
-            self.nextposH < block.posH + block.rectH
-            and self.nextposH > block.posH - self.rectH
+            self.posH < block.posH + block.rectH
+            and self.posH > block.posH - self.rectH
         )
         condW = (
-            self.nextposW < block.posW + block.rectW
-            and self.nextposW > block.posW - self.rectW
+            self.posW < block.posW + block.rectW
+            and self.posW > block.posW - self.rectW
         )
         return condH and condW
 
     def reset_contact(self, block):
-        """
-        Reset position to contact position, before collision.
-        """
+        # Compute distances from outside
+        down_dist = abs(block.posH + block.rectH - self.posH)
+        up_dist = abs(self.posH + self.rectH - block.posH)
+        left_dist = abs(self.posW + self.rectW - block.posW)
+        right_dist = abs(block.posW + block.rectW - self.posW)
+
         # Collision direction
-        # h = self.dirH
-        # w = self.dirW
-        # length = math.sqrt(h ** 2 + w ** 2)
-        # collision_dirH = h / length if length else 0
-        # collision_dirW = w / length if length else 0
-
-        # Overlap gap
-        gapH = self.dirH * (self.rectH - abs(self.posH - block.posH))
-        gapW = self.dirW * (self.rectW - abs(self.posW - block.posW))
-
-        # Reset
-        self.posH -= gapH
-        self.posW -= gapW
-        print(f"GAPH: {gapH}, GAPW: {gapW}")
+        gapH = min(down_dist, up_dist)
+        gapW = min(right_dist, left_dist)
+        if gapW > gapH:  # Vertical move
+            self.posH -= self.dirH * min(down_dist, up_dist)
+        if gapH > gapW:  # Horizontal move
+            self.posW -= self.dirW * min(right_dist, left_dist)
 
     def shoot(self, camera):
         self.projectiles.append(
@@ -79,32 +71,30 @@ class Character:
         """
         self.dirH = 0
         self.dirW = 0
-        self.moveH = 0
-        self.moveW = 0
 
         # Vertically blocked
         if keys[pygame.K_w] and keys[pygame.K_s]:
-            return
+            self.dirH = 0
         # Up
         elif keys[pygame.K_w] and self.posH > 20:
-            self.moveH = self.speed * dt
+            self.posH -= self.speed * dt
             self.dirH = -1
         # Down
         elif keys[pygame.K_s] and self.posH < MAP_H - self.rectH - 20:
-            self.moveH = self.speed * dt
+            self.posH += self.speed * dt
             self.dirH = 1
         else:
             self.dirH = 0
         # Horizontally blocked
         if keys[pygame.K_a] and keys[pygame.K_d]:
-            return
+            self.dirW = 0
         # Left
         elif keys[pygame.K_a] and self.posW > 20:
-            self.moveW = self.speed * dt
+            self.posW -= self.speed * dt
             self.dirW = -1
         # Right
         elif keys[pygame.K_d] and self.posW < MAP_W - self.rectW - 20:
-            self.moveW = self.speed * dt
+            self.posW += self.speed * dt
             self.dirW = 1
         else:
             self.dirW = 0
@@ -144,23 +134,9 @@ class Character:
             pass
 
         # Collision detection
-        self.nextposH = self.posH + self.dirH * self.moveH
-        self.nextposW = self.posW + self.dirW * self.moveW
-
         for block in blocks:
             if self.collides(block):
-                gapH = self.dirH * (
-                    self.rectH - abs(self.nextposH - block.posH)
-                )
-                gapW = self.dirW * (
-                    self.rectW - abs(self.nextposW - block.posW)
-                )
-                if gapH != 0:
-                    self.moveH = 0
-                    self.posH += gapH * self.dirH
-                if gapW != 0:
-                    self.moveW = 0
-                    self.posW += gapW * self.dirW
+                self.reset_contact(block)
 
         # Shoot projectile
         if keys[pygame.K_SPACE] and self.shoot_cooldown <= 0:
@@ -173,17 +149,8 @@ class Character:
 
         Update projectiles positions.
         """
-        # Update position
-        self.posH += self.dirH * self.moveH
-        self.posW += self.dirW * self.moveW
-
         # Update shoot cooldown
         self.shoot_cooldown -= dt
-
-        # Check collision with blocks
-        # for block in blocks:
-        #     if self.collides(block):
-        #         self.reset_contact(block)
 
         # Update rect
         self.rect = (
@@ -194,10 +161,10 @@ class Character:
         )
 
         # Update projectiles
-        # for projectile in self.projectiles:
-        #     projectile.update(camera, dt)
-        #     if projectile.isOut():
-        #         self.projectiles.remove(projectile)
+        for projectile in self.projectiles:
+            projectile.update(camera, dt)
+            if projectile.isOut():
+                self.projectiles.remove(projectile)
 
     def draw(self, camera):
         pygame.draw.rect(camera.screen, COLORS["RED"], self.rect)
