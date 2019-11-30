@@ -25,6 +25,8 @@ class Tilemap:
                     or j == self.tilesW - 1
                 ):
                     self.blocks.append(Block(i * TILESIZE, j * TILESIZE))
+        # Random block
+        self.blocks.append(Block(self.h // 3, self.w // 2))
 
         # Map colors
         self.map = [COLORS["WHITE"] for i in range(self.tilesH * self.tilesW)]
