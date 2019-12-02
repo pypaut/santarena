@@ -59,12 +59,18 @@ class Game:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+            # Full screen toggle
+            size = (self.camera.w, self.camera.h)
+            if event.type is pygame.KEYDOWN and event.key == pygame.K_f:
+                if self.camera.screen.get_flags() & pygame.FULLSCREEN:
+                    pygame.display.set_mode(size)
+                else:
+                    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         # Character
         self.character.event(
             pygame.key.get_pressed(), self.camera, self.tilemap.blocks, self.dt
         )
-
         # Enemies
         for enemy in self.enemies:
             enemy.event(self.character, self.enemies, self.tilemap.blocks)
