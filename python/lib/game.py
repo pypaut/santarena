@@ -5,7 +5,7 @@ from pygame.time import Clock
 from random import randrange
 
 from lib.camera import Camera
-from lib.constants import MAP_H, MAP_W, FPS
+from lib.constants import MAP_H, MAP_W, FPS, COLORS
 from lib.character import Character
 from lib.enemy import Enemy
 from lib.tilemap import Tilemap
@@ -87,6 +87,9 @@ class Game:
         self.dt = self.clock.tick(FPS)
 
     def draw(self):
+        # Reset
+        self.camera.screen.fill(COLORS['BLACK'])
+
         # Tilemap
         self.tilemap.draw(self.camera)
 
