@@ -7,15 +7,17 @@ class Camera:
         # Size
         self.h = h
         self.w = w
+        self.size = pygame.display.list_modes()[0]
+        self.h = self.size[1]
+        self.w = self.size[0]
 
-        # Position
+        # Position on tilemap
         self.posH = 0
         self.posW = 0
 
         # Speed
         self.speed = SPEED
-
-        self.screen = pygame.display.set_mode((self.w, self.h))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
     def move(self, keys, character, dt):
         """

@@ -60,10 +60,9 @@ class Game:
                 pygame.quit()
                 sys.exit()
             # Full screen toggle
-            size = (self.camera.w, self.camera.h)
             if event.type is pygame.KEYDOWN and event.key == pygame.K_f:
                 if self.camera.screen.get_flags() & pygame.FULLSCREEN:
-                    pygame.display.set_mode(size)
+                    pygame.display.set_mode(self.camera.size)
                 else:
                     pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
@@ -94,7 +93,7 @@ class Game:
 
     def draw(self):
         # Reset
-        self.camera.screen.fill(COLORS['BLACK'])
+        self.camera.screen.fill(COLORS["BLACK"])
 
         # Tilemap
         self.tilemap.draw(self.camera)
