@@ -67,7 +67,7 @@ class Game:
 
         # Enemies
         for enemy in self.enemies:
-            enemy.event()
+            enemy.event(self.character, self.enemies, self.tilemap.blocks)
 
         # Camera
         self.camera.move(pygame.key.get_pressed(), self.character, self.dt)
