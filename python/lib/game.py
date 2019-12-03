@@ -14,11 +14,10 @@ from lib.tilemap import Tilemap
 class Game:
     def __init__(self):
         # Pygame launch
-        pygame.init()
         pygame.display.set_caption("SANTARENA")
 
         # Screen (camera)
-        self.camera = Camera(500, 800)
+        self.camera = Camera()
 
         # Tilemap
         self.tilemap = Tilemap(MAP_H, MAP_W)

@@ -1,5 +1,5 @@
 import pygame
-from lib.constants import COLORS, MAP_H, MAP_W
+from lib.constants import COLORS, MAP_H, MAP_W, PROJECTILE_SIZE
 
 
 class Projectile:
@@ -11,12 +11,12 @@ class Projectile:
 
         self.speed = 1
 
-        self.rect = (self.posW, self.posH, 20, 20)
+        self.rect = (self.posW, self.posH, PROJECTILE_SIZE, PROJECTILE_SIZE)
 
     def update(self, camera, dt):
         self.posW += self.speed * self.dirW * dt
         self.posH += self.speed * self.dirH * dt
-        self.rect = (self.posW, self.posH, 20, 20)
+        self.rect = (self.posW, self.posH, PROJECTILE_SIZE, PROJECTILE_SIZE)
 
     def isOut(self):
         return (

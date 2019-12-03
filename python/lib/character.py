@@ -1,5 +1,5 @@
 import pygame
-from lib.constants import SPEED, COLORS, MAP_H, MAP_W
+from lib.constants import SPEED, COLORS, MAP_H, MAP_W, TILESIZE
 from lib.movable import Movable
 from lib.projectile import Projectile
 
@@ -11,8 +11,8 @@ class Character(Movable):
         self.posW = 0
 
         # Size
-        self.rectH = 50
-        self.rectW = 50
+        self.rectH = TILESIZE
+        self.rectW = TILESIZE
 
         # Movement
         self.speed = SPEED

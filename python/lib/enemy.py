@@ -1,7 +1,7 @@
 import math
 import pygame
 
-from lib.constants import ENEMY_SPEED, COLORS
+from lib.constants import ENEMY_SPEED, COLORS, TILESIZE
 from lib.movable import Movable
 
 
@@ -12,8 +12,8 @@ class Enemy(Movable):
         self.posW = posW
 
         # Size
-        self.rectH = 50
-        self.rectW = 50
+        self.rectH = TILESIZE
+        self.rectW = TILESIZE
 
         # Movement
         self.speed = ENEMY_SPEED

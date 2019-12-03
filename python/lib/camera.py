@@ -3,10 +3,8 @@ from lib.constants import SPEED, MAP_H, MAP_W
 
 
 class Camera:
-    def __init__(self, h, w):
+    def __init__(self):
         # Size
-        self.h = h
-        self.w = w
         self.size = pygame.display.list_modes()[0]
         self.h = self.size[1]
         self.w = self.size[0]

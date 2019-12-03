@@ -1,3 +1,14 @@
+import pygame
+
+# Initialization required to import TILESIZE
+pygame.init()
+
+SCREEN_SCALE = 25  # The higher, the broader the camera
+TILESIZE = pygame.display.list_modes()[0][0] // SCREEN_SCALE
+PROJECTILE_SIZE = TILESIZE * (40/100)
+MAP_H = TILESIZE * 40
+MAP_W = TILESIZE * 40
+
 COLORS = {
     "BLACK": (0, 0, 0),
     "WHITE": (255, 255, 255),
@@ -7,13 +18,6 @@ COLORS = {
     "GREEN": (20, 200, 20),
 }
 
-FPS = 120
-
+FPS = 60
 SPEED = 0.3
-
 ENEMY_SPEED = 0.1
-
-TILESIZE = 50
-
-MAP_H = 800
-MAP_W = 1500
