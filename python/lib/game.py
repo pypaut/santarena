@@ -68,7 +68,11 @@ class Game:
 
         # Character
         self.character.event(
-            pygame.key.get_pressed(), self.camera, self.tilemap.blocks, self.dt
+            pygame.key.get_pressed(),
+            self.camera,
+            self.enemies,
+            self.tilemap.blocks,
+            self.dt,
         )
         # Enemies
         for enemy in self.enemies:

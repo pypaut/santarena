@@ -39,7 +39,7 @@ class Character(Movable):
         )
         self.shoot_cooldown = 200
 
-    def event(self, keys, camera, blocks, dt):
+    def event(self, keys, camera, enemies, blocks, dt):
         """
         Update according to pressed keys.
         """
@@ -108,9 +108,9 @@ class Character(Movable):
             pass
 
         # Collision detection
-        for block in blocks:
-            if self.collides(block):
-                self.reset_contact(block)
+        for item in blocks + enemies:
+            if self.collides(item):
+                self.reset_contact(item)
 
         # Shoot projectile
         if keys[pygame.K_SPACE] and self.shoot_cooldown <= 0:
