@@ -1,5 +1,12 @@
 import pygame
-from lib.constants import SPEED, COLORS, MAP_H, MAP_W, TILESIZE
+from lib.constants import (
+    SPEED,
+    COLORS,
+    MAP_H,
+    MAP_W,
+    TILESIZE,
+    PROJECTILE_SIZE
+)
 from lib.movable import Movable
 from lib.projectile import Projectile
 
@@ -24,15 +31,23 @@ class Character(Movable):
 
         # Projectiles
         self.projectiles = []
-        self.shoot_cooldown = 200
+        self.shoot_cooldown = 100
         self.shoot_dirH = 0
         self.shoot_dirW = 1
 
     def shoot(self, camera):
+        # Center pos
+        posH = self.posH + (self.rectH - PROJECTILE_SIZE) // 2 - camera.posH
+        posW = self.posW + (self.rectW - PROJECTILE_SIZE) // 2 - camera.posW
+
+        # Set to right side
+        posH += self.shoot_dirH * self.rectH // 2
+        posW += self.shoot_dirW * self.rectW // 2
+
         self.projectiles.append(
             Projectile(
-                self.posH - camera.posH,
-                self.posW - camera.posW,
+                posH,
+                posW,
                 self.shoot_dirH,
                 self.shoot_dirW,
             )
