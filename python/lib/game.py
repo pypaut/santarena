@@ -73,6 +73,7 @@ class Game:
             self.tilemap.blocks,
             self.dt,
         )
+
         # Enemies
         for enemy in self.enemies:
             enemy.event(self.character, self.enemies, self.tilemap.blocks)

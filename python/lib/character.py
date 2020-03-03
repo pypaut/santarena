@@ -127,6 +127,16 @@ class Character(Movable):
             if self.collides(item):
                 self.reset_contact(item)
 
+        for projectile in self.projectiles:
+            for enemy in enemies:
+                if projectile.collides(enemy):
+                    self.projectiles.remove(projectile)
+                    break
+            for block in blocks:
+                if projectile.collides(block):
+                    self.projectiles.remove(projectile)
+                    break
+
         # Shoot projectile
         if keys[pygame.K_SPACE] and self.shoot_cooldown <= 0:
             self.shoot(camera)

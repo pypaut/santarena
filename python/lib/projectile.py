@@ -1,17 +1,20 @@
 import pygame
 from lib.constants import COLORS, MAP_H, MAP_W, PROJECTILE_SIZE
+from lib.movable import Movable
 
 
-class Projectile:
+class Projectile(Movable):
     def __init__(self, posH, posW, dirH, dirW):
         self.posH = posH
         self.posW = posW
         self.dirH = dirH
         self.dirW = dirW
+        self.rectH = PROJECTILE_SIZE
+        self.rectW = PROJECTILE_SIZE
 
         self.speed = 1
 
-        self.rect = (self.posW, self.posH, PROJECTILE_SIZE, PROJECTILE_SIZE)
+        self.rect = (self.posW, self.posH, self.rectW, self.rectH)
 
     def update(self, camera, dt):
         self.posW += self.speed * self.dirW * dt
